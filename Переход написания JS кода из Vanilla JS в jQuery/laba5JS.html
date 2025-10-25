@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №5 - Vanilla JS vs jQuery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .comparison-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .vanilla-section, .jquery-section {
+            flex: 1;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+        .vanilla-section {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+        .jquery-section {
+            border-color: #27ae60;
+            background: #f8f9fa;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .vanilla-section h2 {
+            color: #3498db;
+        }
+        .jquery-section h2 {
+            color: #27ae60;
+        }
+        button {
+            margin: 10px 5px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .vanilla-btn {
+            background: #3498db;
+            color: white;
+        }
+        .vanilla-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .jquery-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .jquery-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+        .message {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 6px;
+            min-height: 50px;
+            background: #ecf0f1;
+            border-left: 4px solid #bdc3c7;
+        }
+        .item {
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        .item button {
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-left: auto;
+        }
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: #34495e;
+            color: white;
+            border-radius: 8px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Лабораторная работа №5<br><small>Переход от Vanilla JS к jQuery</small></h1>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <h3>Vanilla JS</h3>
+                <div id="vanillaCounter">0</div>
+            </div>
+            <div class="stat-item">
+                <h3>jQuery</h3>
+                <div id="jqueryCounter">0</div>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <!-- Vanilla JS Section -->
+            <div class="vanilla-section">
+                <h2>Vanilla JavaScript</h2>
+                
+                <div class="code-block">
+                    // Обработчик клика<br>
+                    document.getElementById('btn').addEventListener('click', function() {<br>
+                    &nbsp;&nbsp;const element = document.getElementById('message');<br>
+                    &nbsp;&nbsp;element.textContent = 'Текст изменен!';<br>
+                    &nbsp;&nbsp;element.style.color = 'blue';<br>
+                    });
+                </div>
+
+                <button class="vanilla-btn" id="vanillaChangeText">Изменить текст</button>
+                <button class="vanilla-btn" id="vanillaAddItem">Добавить элемент</button>
+                <button class="vanilla-btn" id="vanillaToggle">Переключить видимость</button>
+                <button class="vanilla-btn" id="vanillaFade">Анимация прозрачности</button>
+
+                <div id="vanillaMessage" class="message">Сообщение Vanilla JS</div>
+                <div id="vanillaList"></div>
+                <div id="vanillaToggleElement" class="message">Элемент для переключения</div>
+            </div>
+
+            <!-- jQuery Section -->
+            <div class="jquery-section">
+                <h2>jQuery</h2>
+                
+                <div class="code-block">
+                    // Обработчик клика<br>
+                    $('#btn').on('click', function() {<br>
+                    &nbsp;&nbsp;$('#message').text('Текст изменен!').css('color', 'green');<br>
+                    });
+                </div>
+
+                <button class="jquery-btn" id="jqueryChangeText">Изменить текст</button>
+                <button class="jquery-btn" id="jqueryAddItem">Добавить элемент</button>
+                <button class="jquery-btn" id="jqueryToggle">Переключить видимость</button>
+                <button class="jquery-btn" id="jqueryFade">Анимация прозрачности</button>
+
+                <div id="jqueryMessage" class="message">Сообщение jQuery</div>
+                <div id="jqueryList"></div>
+                <div id="jqueryToggleElement" class="message">Элемент для переключения</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="vanilla-btn" id="vanillaReset">Сбросить Vanilla</button>
+            <button class="jquery-btn" id="jqueryReset">Сбросить jQuery</button>
+        </div>
+    </div>
+
+    <!-- Подключение jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        // Vanilla JS код
+        document.addEventListener('DOMContentLoaded', function() {
+            let vanillaCounter = 0;
+            let vanillaItemCount = 0;
+            
+            // Изменение текста
+            document.getElementById('vanillaChangeText').addEventListener('click', function() {
+                const message = document.getElementById('vanillaMessage');
+                message.textContent = 'Текст изменен через Vanilla JS! ' + new Date().toLocaleTimeString();
+                message.style.color = '#3498db';
+                message.style.fontWeight = 'bold';
+                vanillaCounter++;
+                document.getElementById('vanillaCounter').textContent = vanillaCounter;
+            });
+            
+            // Добавление элемента
+            document.getElementById('vanillaAddItem').addEventListener('click', function() {
+                vanillaItemCount++;
+                const list = document.getElementById('vanillaList');
+                const newItem = document.createElement('div');
+                newItem.className = 'item fade-in';
+                newItem.textContent = 'Элемент ' + vanillaItemCount + ' (Vanilla JS)';
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Удалить';
+                removeBtn.className = 'vanilla-btn';
+                removeBtn.style.fontSize = '12px';
+                removeBtn.addEventListener('click', function() {
+                    list.removeChild(newItem);
+                });
+                
+                newItem.appendChild(removeBtn);
+                list.appendChild(newItem);
+                vanillaCounter++;
+                document.getElementById('vanillaCounter').textContent = vanillaCounter;
+            });
+            
+            // Переключение видимости
+            document.getElementById('vanillaToggle').addEventListener('click', function() {
+                const element = document.getElementById('vanillaToggleElement');
+                if (element.style.display === 'none') {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+                vanillaCounter++;
+                document.getElementById('vanillaCounter').textContent = vanillaCounter;
+            });
+            
+            // Анимация прозрачности
+            document.getElementById('vanillaFade').addEventListener('click', function() {
+                const element = document.getElementById('vanillaToggleElement');
+                let opacity = 1;
+                const fadeInterval = setInterval(function() {
+                    if (opacity <= 0) {
+                        clearInterval(fadeInterval);
+                        element.style.display = 'none';
+                        element.style.opacity = '1';
+                    } else {
+                        opacity -= 0.1;
+                        element.style.opacity = opacity;
+                    }
+                }, 50);
+                vanillaCounter++;
+                document.getElementById('vanillaCounter').textContent = vanillaCounter;
+            });
+            
+            // Сброс
+            document.getElementById('vanillaReset').addEventListener('click', function() {
+                document.getElementById('vanillaMessage').textContent = 'Сообщение Vanilla JS';
+                document.getElementById('vanillaMessage').style.color = '';
+                document.getElementById('vanillaMessage').style.fontWeight = '';
+                document.getElementById('vanillaList').innerHTML = '';
+                document.getElementById('vanillaToggleElement').style.display = 'block';
+                document.getElementById('vanillaToggleElement').style.opacity = '1';
+                vanillaItemCount = 0;
+                vanillaCounter = 0;
+                document.getElementById('vanillaCounter').textContent = vanillaCounter;
+            });
+        });
+
+        // jQuery код
+        $(document).ready(function() {
+            let jqueryCounter = 0;
+            let jqueryItemCount = 0;
+            
+            // Изменение текста
+            $('#jqueryChangeText').on('click', function() {
+                $('#jqueryMessage')
+                    .text('Текст изменен через jQuery! ' + new Date().toLocaleTimeString())
+                    .css({'color': '#27ae60', 'font-weight': 'bold'});
+                jqueryCounter++;
+                $('#jqueryCounter').text(jqueryCounter);
+            });
+            
+            // Добавление элемента
+            $('#jqueryAddItem').on('click', function() {
+                jqueryItemCount++;
+                const newItem = $('<div>')
+                    .addClass('item fade-in')
+                    .text('Элемент ' + jqueryItemCount + ' (jQuery)');
+                
+                $('<button>')
+                    .text('Удалить')
+                    .addClass('jquery-btn')
+                    .css('font-size', '12px')
+                    .on('click', function() {
+                        $(this).parent().remove();
+                    })
+                    .appendTo(newItem);
+                
+                $('#jqueryList').append(newItem);
+                jqueryCounter++;
+                $('#jqueryCounter').text(jqueryCounter);
+            });
+            
+            // Переключение видимости
+            $('#jqueryToggle').on('click', function() {
+                $('#jqueryToggleElement').toggle();
+                jqueryCounter++;
+                $('#jqueryCounter').text(jqueryCounter);
+            });
+            
+            // Анимация прозрачности
+            $('#jqueryFade').on('click', function() {
+                $('#jqueryToggleElement').fadeOut(500);
+                jqueryCounter++;
+                $('#jqueryCounter').text(jqueryCounter);
+            });
+            
+            // Сброс
+            $('#jqueryReset').on('click', function() {
+                $('#jqueryMessage')
+                    .text('Сообщение jQuery')
+                    .css({'color': '', 'font-weight': ''});
+                $('#jqueryList').empty();
+                $('#jqueryToggleElement').show().css('opacity', '1');
+                jqueryItemCount = 0;
+                jqueryCounter = 0;
+                $('#jqueryCounter').text(jqueryCounter);
+            });
+        });
+    </script>
+</body>
+</html>
